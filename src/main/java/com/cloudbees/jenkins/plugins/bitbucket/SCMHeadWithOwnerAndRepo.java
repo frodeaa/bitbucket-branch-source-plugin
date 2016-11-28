@@ -89,7 +89,14 @@ public class SCMHeadWithOwnerAndRepo extends SCMHead {
      */
     @Override
     public String getName() {
-        return metadata != null ? PR_BRANCH_PREFIX + metadata.getId() : getBranchName();
+        String name = getBranchName();
+        if (metadata != null) {
+            name = PR_BRANCH_PREFIX + metadata.getId();
+            if (metadata.getTitle() != null) {
+                name += ": " + metadata.getTitle();
+            }
+        }
+        return name;
     }
 
     @CheckForNull
